@@ -3,6 +3,14 @@
     <style name="Base.Theme.WorkFusion" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Set splash screen background to null to disable it -->
+        <!-- Set splash screen background to null to disable it -->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowSplashScreenBackground">@android:color/transparent</item>
+        <!-- Remove any splash screen icon -->
+        <item name="android:windowSplashScreenAnimatedIcon">@null</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@android:color/transparent</item>
+
     </style>
 
     <style name="Theme.WorkFusion" parent="Base.Theme.WorkFusion" />

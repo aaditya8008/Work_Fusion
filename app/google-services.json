@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "376852086304",
+    "project_id": "workfusion-df709",
+    "storage_bucket": "workfusion-df709.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376852086304:android:dfb719ff6897243b0d8645",
+        "android_client_info": {
+          "package_name": "com.example.workfusion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgYuxnoMD7BlWtXmDAQuedxa10WYYcnHk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

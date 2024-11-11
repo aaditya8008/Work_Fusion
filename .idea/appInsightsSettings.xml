@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.workfusion" />
+                  <option name="mobileSdkAppId" value="1:376852086304:android:dfb719ff6897243b0d8645" />
+                  <option name="projectId" value="workfusion-df709" />
+                  <option name="projectNumber" value="376852086304" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

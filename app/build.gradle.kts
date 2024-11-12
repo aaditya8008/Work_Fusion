@@ -8,6 +8,9 @@ android {
     namespace = "com.example.workfusion"
     compileSdk = 34
 
+    buildFeatures {
+        viewBinding=true
+    }
     defaultConfig {
         applicationId = "com.example.workfusion"
         minSdk = 31

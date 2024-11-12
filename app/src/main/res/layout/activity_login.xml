@@ -20,17 +20,16 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
         app:cardBackgroundColor="#B0F0E0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3">
 
         <LinearLayout
-            android:layout_width="410dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="vertical"
@@ -38,7 +37,7 @@
             android:paddingVertical="15dp">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/loginText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Login"
@@ -46,7 +45,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextTextEmailAddress2"
+                android:id="@+id/emailInput"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:drawableLeft="@drawable/baseline_alternate_email_24"
@@ -56,7 +55,7 @@
                 android:inputType="textEmailAddress" />
 
             <EditText
-                android:id="@+id/editTextTextPassword"
+                android:id="@+id/passwordInput"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:drawableLeft="@drawable/baseline_lock_24"
@@ -66,7 +65,7 @@
                 android:inputType="textPassword" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/loginButton"
                 android:layout_width="300dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
@@ -90,5 +89,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/cardView" />
+
+    <Switch
+        android:id="@+id/loginRoleSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Switch"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

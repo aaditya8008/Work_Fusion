@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,8 +18,16 @@
         android:theme="@style/Theme.WorkFusion"
         tools:targetApi="31">
         <activity
-            android:name=".Home"
+            android:name=".ui.Home"
             android:exported="false" />
+        <activity
+            android:name=".ui.employee.HomeEmployee"
+            android:exported="false"
+            android:label="@string/title_activity_home_employee" />
+        <activity
+            android:name=".ui.admin.HomeAdmin"
+            android:exported="false"
+            android:label="@string/title_activity_home_admin" />
         <activity
             android:name=".ui.signup.VerificationActivity"
             android:exported="false" />

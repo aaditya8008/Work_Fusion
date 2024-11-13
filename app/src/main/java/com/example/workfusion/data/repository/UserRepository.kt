@@ -11,12 +11,13 @@ class UserRepository(
 ) {
 
     // Sign up organization
-    suspend fun signupOrganization(organizationName: String, email: String, password: String): Result<AuthResult> {
+    suspend fun signupOrganization(organizationName: String, email: String, password: String,userType:String): Result<AuthResult> {
         return try {
             val authResult = auth.createUserWithEmailAndPassword(email, password).await()
             val organization = hashMapOf(
                 "organizationName" to organizationName,
                 "email" to email,
+                "userType" to userType,
                 "employeeCounter" to 0L // To track number of employees
             )
             db.collection("organizations").document(auth.currentUser!!.uid).set(organization).await()
@@ -29,7 +30,8 @@ class UserRepository(
     // Sign up employee
     suspend fun signupEmployee(
         organizationName: String, name: String, email: String,
-        phoneNumber: String, password: String
+        phoneNumber: String, password: String,
+        userType:String
     ): Result<AuthResult> {
         return try {
             // Check if the organization exists
@@ -54,6 +56,7 @@ class UserRepository(
                 "empId" to newEmpId,
                 "name" to name,
                 "email" to email,
+                "userType" to userType,
                 "phoneNumber" to phoneNumber
             )
 

@@ -10,12 +10,12 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     // Sign up organization
     fun signupOrganization(
-        organizationName: String, email: String, password: String,
+        organizationName: String, email: String, password: String,userType: String,
         onSuccess: (AuthResult) -> Unit, onFailure: (Exception) -> Unit
     ) {
         viewModelScope.launch {
             try {
-                val result = userRepository.signupOrganization(organizationName, email, password).getOrThrow()
+                val result = userRepository.signupOrganization(organizationName, email, password,userType).getOrThrow()
                 onSuccess(result)
             } catch (e: Exception) {
                 onFailure(e)
@@ -26,13 +26,13 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
     // Sign up employee
     fun signupEmployee(
         organizationName: String, name: String, email: String,
-        phoneNumber: String, password: String,
+        phoneNumber: String, password: String,userType:String,
         onSuccess: (AuthResult) -> Unit, onFailure: (Exception) -> Unit
     ) {
         viewModelScope.launch {
             try {
                 val result = userRepository.signupEmployee(
-                    organizationName, name, email, phoneNumber, password
+                    organizationName, name, email, phoneNumber, password,userType
                 ).getOrThrow()
                 onSuccess(result)
             } catch (e: Exception) {

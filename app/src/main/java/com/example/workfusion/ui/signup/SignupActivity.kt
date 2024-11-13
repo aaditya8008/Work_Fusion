@@ -35,18 +35,19 @@ class SignupActivity : AppCompatActivity() {
             val email = binding.emailEditText.text.toString()
             val phoneNumber = binding.phoneEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
+            val userType = if (binding.organizationSwitch.isChecked) "organization" else "employee"
 
             if (binding.organizationSwitch.isChecked) {
                 // Organization signup
                 if (organizationName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-                    registerOrganization(organizationName, email, password)
+                    registerOrganization(organizationName, email, password,userType)
                 } else {
                     Toast.makeText(this, "Please fill all organization fields", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 // Employee signup
                 if (organizationName.isNotEmpty() && name.isNotEmpty() && email.isNotEmpty() && phoneNumber.isNotEmpty() && password.isNotEmpty()) {
-                    registerEmployee(organizationName, name, email, phoneNumber, password)
+                    registerEmployee(organizationName, name, email, phoneNumber, password,userType)
                 } else {
                     Toast.makeText(this, "Please fill all employee fields", Toast.LENGTH_SHORT).show()
                 }
@@ -54,8 +55,8 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerOrganization(organizationName: String, email: String, password: String) {
-        userViewModel.signupOrganization(organizationName, email, password,
+    private fun registerOrganization(organizationName: String, email: String, password: String,userType:String) {
+        userViewModel.signupOrganization(organizationName, email, password,userType,
             onSuccess = { authResult ->
                 sendEmailVerification(authResult.user?.email)
             },
@@ -65,8 +66,8 @@ class SignupActivity : AppCompatActivity() {
         )
     }
 
-    private fun registerEmployee(organizationName: String, name: String, email: String, phoneNumber: String, password: String) {
-        userViewModel.signupEmployee(organizationName, name, email, phoneNumber, password,
+    private fun registerEmployee(organizationName: String, name: String, email: String, phoneNumber: String, password: String,userType:String) {
+        userViewModel.signupEmployee(organizationName, name, email, phoneNumber, password,userType,
             onSuccess = { authResult ->
                 sendEmailVerification(authResult.user?.email)
             },

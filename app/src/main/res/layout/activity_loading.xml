@@ -12,8 +12,6 @@
         android:id="@+id/ghost"
         android:layout_width="188dp"
         android:layout_height="606dp"
-
-
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,9 +23,7 @@
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/verifying"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
-
-
+        android:layout_height="150dp"
         app:layout_constraintBottom_toBottomOf="@+id/ghost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

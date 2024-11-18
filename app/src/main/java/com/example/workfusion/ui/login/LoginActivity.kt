@@ -27,6 +27,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        //switch text
+        binding.loginRoleSwitch.setOnCheckedChangeListener { _, isChecked ->
+            binding.loginRoleSwitch.text = if (isChecked) "Admin" else "Employee"
+        }
 
         binding.loginButton.setOnClickListener {
             val email = binding.emailInput.text.toString()

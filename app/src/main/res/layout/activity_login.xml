@@ -94,14 +94,18 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/cardView" />
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/loginRoleSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch"
+        android:layout_width="268dp"
+        android:layout_height="25dp"
+        android:text="Employee"
+        android:textSize="15dp"
+        android:thumb="@drawable/thumb"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:showText="true"
+        app:track="@drawable/track" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

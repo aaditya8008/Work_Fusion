@@ -24,7 +24,9 @@ class SignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.organizationSwitch.setOnCheckedChangeListener { _, isChecked ->
+            binding.organizationSwitch.text = if (isChecked) "Admin" else "Employee"
+        }
         setupListeners()
     }
 

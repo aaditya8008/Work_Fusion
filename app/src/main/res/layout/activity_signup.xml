@@ -18,16 +18,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/signup" />
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/organizationSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="190dp"
+        android:layout_height="29dp"
         android:layout_marginBottom="12dp"
-        android:text="Switch"
+        android:text="Employee"
+        android:textSize="15dp"
+        android:thumb="@drawable/thumb"
         app:layout_constraintBottom_toTopOf="@+id/cardView3"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="@+id/imageView2" />
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:showText="true"
+        app:track="@drawable/track" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"

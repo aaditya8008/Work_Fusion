@@ -9,6 +9,8 @@ import com.example.workfusion.MainActivity
 import com.example.workfusion.R
 import com.example.workfusion.data.repository.UserRepository
 import com.example.workfusion.databinding.ActivityLoginBinding
+import com.example.workfusion.ui.admin.HomeAdmin
+import com.example.workfusion.ui.employee.HomeEmployee
 
 import com.example.workfusion.utils.ViewModelFactory
 import com.example.workfusion.viewmodel.AuthViewModel
@@ -35,11 +37,26 @@ class LoginActivity : AppCompatActivity() {
                 // Call ViewModel to perform login
                 userViewModel.login(email, password,
                     onSuccess = { authResult ->
-                        // Navigate based on role selection
-                        if (isOrganizationLogin) {
-                            navigateToAdminScreen()  // Organization login
-                        } else {
-                            navigateToHomeScreen()   // Employee login
+                        val userId=FirebaseAuth.getInstance().currentUser?.uid
+                        if(userId!=null){
+                            userViewModel.checkUserType(
+                                UserId = userId,
+                                onSuccess = { userType ->
+                                    // Handle the user type
+                                    if (userType == "organization") {
+                                        navigateToAdminScreen()
+                                    } else if (userType == "employee") {
+                                        navigateToHomeScreen()
+                                    }
+                                },
+                                onFailure = { exception ->
+                                    // Handle the error
+                                    Toast.makeText(this, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
+                                }
+                            )
+                        }
+                        else {
+                            Toast.makeText(this, "No user logged in.", Toast.LENGTH_SHORT).show()
                         }
                     },
                     onFailure = { exception ->
@@ -53,13 +70,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun navigateToHomeScreen() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, HomeEmployee::class.java)
         startActivity(intent)
         finish()
     }
 
     private fun navigateToAdminScreen() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, HomeAdmin::class.java)
         startActivity(intent)
         finish()
     }

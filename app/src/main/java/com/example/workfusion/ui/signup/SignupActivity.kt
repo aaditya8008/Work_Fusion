@@ -89,6 +89,8 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun navigateToVerificationScreen() {
+        val intent=Intent(this, VerificationActivity::class.java)
+        intent.putExtra("userType",binding.organizationSwitch.isChecked)
         startActivity(Intent(this, VerificationActivity::class.java))
         finish()
     }

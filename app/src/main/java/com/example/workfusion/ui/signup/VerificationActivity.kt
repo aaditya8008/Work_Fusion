@@ -9,17 +9,21 @@ import com.example.workfusion.LoadingFragement
 import com.example.workfusion.MainActivity
 import com.example.workfusion.R
 import com.example.workfusion.databinding.ActivityVerificationBinding
+import com.example.workfusion.ui.admin.HomeAdmin
+import com.example.workfusion.ui.employee.HomeEmployee
 import com.google.firebase.auth.FirebaseAuth
 
 class VerificationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVerificationBinding
     private val auth = FirebaseAuth.getInstance()
+    var organization:Boolean=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityVerificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        organization=intent.getBooleanExtra("userType",false)
         val fragment = LoadingFragement()
 
 // Get the FragmentManager
@@ -41,8 +45,17 @@ class VerificationActivity : AppCompatActivity() {
                 auth.currentUser?.reload()?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         if (auth.currentUser?.isEmailVerified == true) {
-                            Toast.makeText(this@VerificationActivity, "Email verified!", Toast.LENGTH_SHORT).show()
-                            navigateToHomeScreen()
+                            Toast.makeText(
+                                this@VerificationActivity,
+                                "Email verified!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            if(organization) {
+                                navigateToAdminHomeScreen()
+                            }
+                            else{
+                                navigateToEmpHomeScreen()
+                            }
                         } else {
                             handler.postDelayed(this, 5000)
                         }
@@ -52,9 +65,19 @@ class VerificationActivity : AppCompatActivity() {
         }, 5000)
     }
 
-    private fun navigateToHomeScreen() {
-        val intent = Intent(this, MainActivity::class.java)
+    private fun navigateToEmpHomeScreen() {
+        val intent = Intent(this, HomeEmployee::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun navigateToAdminHomeScreen() {
+        val intent = Intent(this, HomeAdmin::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun navigateToHomeScreen() {
+
     }
 }

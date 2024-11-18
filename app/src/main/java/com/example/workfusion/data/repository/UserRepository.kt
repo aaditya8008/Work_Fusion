@@ -79,4 +79,37 @@ class UserRepository(
             Result.failure(e)
         }
     }
+
+    suspend fun getUserType(userId: String): Result<String> {
+        return try {
+            // Check in the organizations collection
+            val orgDoc = db.collection("organizations").document(userId).get().await()
+            if (orgDoc.exists()) {
+                return Result.success("organization")
+            }
+
+            // Check in the employees subcollection of all organizations
+            val orgQuery = db.collection("organizations").get().await()
+            for (doc in orgQuery.documents) {
+                val empDoc = db.collection("organizations")
+                    .document(doc.id)
+                    .collection("employees")
+                    .document(userId)
+                    .get()
+                    .await()
+                if (empDoc.exists()) {
+                    return Result.success("employee")
+                }
+            }
+
+            Result.failure(Exception("User type not found."))
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+
 }
+
+
+

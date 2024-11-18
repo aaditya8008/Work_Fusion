@@ -55,4 +55,21 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
             }
         }
     }
+    fun checkUserType(
+        UserId: String,
+        onSuccess: (String)-> Unit,onFailure: (Exception) ->Unit
+    ){
+        viewModelScope.launch {
+            try {
+                val usertype=userRepository.getUserType(UserId).getOrThrow()
+                onSuccess(usertype)
+            }
+            catch (e: Exception){
+                onFailure(e)
+            }
+
+        }
+
+
+    }
 }

@@ -38,6 +38,7 @@ class SignupActivity : AppCompatActivity() {
             val phoneNumber = binding.phoneEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
             val userType = if (binding.organizationSwitch.isChecked) "organization" else "employee"
+            binding.organizationSwitch.text=userType
 
             if (binding.organizationSwitch.isChecked) {
                 // Organization signup

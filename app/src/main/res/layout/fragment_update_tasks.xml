@@ -16,7 +16,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="10dp"
+            android:fontFamily="@font/autour_one"
             android:text="Assigned Task"
+            android:textColor="#070601"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -115,8 +117,8 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="450dp"
+            android:layout_height="915dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

@@ -18,7 +18,8 @@ class UserRepository(
                 "organizationName" to organizationName,
                 "email" to email,
                 "userType" to userType,
-                "employeeCounter" to 0L // To track number of employees
+                "employeeCounter" to 0L,
+                "taskCounter" to 0L// To track number of employees
             )
             db.collection("organizations").document(auth.currentUser!!.uid).set(organization).await()
             Result.success(authResult)

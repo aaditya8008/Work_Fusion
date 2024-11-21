@@ -10,14 +10,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.workfusion.R
 import com.example.workfusion.data.repository.EmployeeRepository
+import com.example.workfusion.data.repository.TaskRepository
 import com.example.workfusion.databinding.FragmentAddTaskBinding
 import com.example.workfusion.utils.EmployeeViewModelFactory
+import com.example.workfusion.utils.TaskViewModelFactory
 import com.example.workfusion.viewmodel.EmployeeViewModel
+import com.example.workfusion.viewmodel.TaskViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -28,6 +29,12 @@ class AddTask : Fragment() {
     private val viewModel: EmployeeViewModel by viewModels {
         EmployeeViewModelFactory(EmployeeRepository(FirebaseFirestore.getInstance(), FirebaseAuth.getInstance()))
     }
+    private val taskViewModel: TaskViewModel by viewModels {
+        TaskViewModelFactory(TaskRepository(FirebaseFirestore.getInstance(), FirebaseAuth.getInstance()))
+    }
+
+    private var startDate: String? = null
+    private var endDate: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,34 +43,54 @@ class AddTask : Fragment() {
         _binding = FragmentAddTaskBinding.inflate(inflater, container, false)
         setupObservers()
         setupCalendarListeners()
-        viewModel.fetchOrganizationId() // Fetch organization ID
-        viewModel.fetchAllEmployees() // Fetch the list of employees
+        viewModel.fetchOrganizationId()
+        viewModel.fetchAllEmployees()
+
+        binding.create.setOnClickListener {
+            val employee = binding.spinnerEmployee.selectedItem.toString().substringAfter(' ')
+            val description = binding.descriptionInput.text.toString()
+
+
+// Extract the empId by taking the part before the first dot
+            val empId = binding.spinnerEmployee.selectedItem.toString().substringBefore('.').trim() // "1"
+            Toast.makeText(requireContext(),"$empId",Toast.LENGTH_LONG).show()
+            val taskId=0
+
+            // Validate input fields
+            if (startDate == null || endDate == null || description.isBlank() || empId.isBlank()) {
+                Toast.makeText(requireContext(), "Please fill all the fields", Toast.LENGTH_SHORT).show()
+            } else {
+                // Call ViewModel function to handle task creation with Date objects
+                taskViewModel.uploadTask(
+                    empId = empId.toLong(),
+
+                    name = employee.substringAfter('.'),
+                    description = description,
+                    startDate = startDate!!,
+                    endDate = endDate!!
+                )
+            }
+        }
 
         return binding.root
     }
 
-    /**
-     * Setup listeners for calendar TextViews.
-     */
     private fun setupCalendarListeners() {
-        // Listener for Start Date
         binding.startDateCalender.setOnClickListener {
             showDatePicker { selectedDate ->
+                startDate = selectedDate
                 binding.startDateCalender.text = selectedDate
             }
         }
 
-        // Listener for End Date
         binding.endDateCalender.setOnClickListener {
             showDatePicker { selectedDate ->
+                endDate = selectedDate
                 binding.endDateCalender.text = selectedDate
             }
         }
     }
 
-    /**
-     * Function to show a DatePickerDialog.
-     */
     private fun showDatePicker(onDateSelected: (String) -> Unit) {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -83,9 +110,11 @@ class AddTask : Fragment() {
         ).show()
     }
 
-    /**
-     * Setup observers to listen to employee data and populate the spinner.
-     */
+    // Convert string to Date
+
+
+
+
     private fun setupObservers() {
         lifecycleScope.launch {
             viewModel.allEmployees.collect { employees ->
@@ -108,9 +137,6 @@ class AddTask : Fragment() {
         }
     }
 
-    /**
-     * Set up the spinner with the list of employee names.
-     */
     private fun setupSpinner(employeeNames: List<String>) {
         if (employeeNames.isNotEmpty()) {
             val adapter = ArrayAdapter(

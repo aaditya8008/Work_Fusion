@@ -33,7 +33,7 @@ class HomeAdmin : AppCompatActivity() {
             }
             fragment?.let {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainerViewEmp, it)
+                    .replace(R.id.fragmentContainerViewAdmin, it)
                     .commit()
             }
 

@@ -1,8 +1,10 @@
 package com.example.workfusion.data.repository
 
 import android.util.Log
+import com.example.workfusion.model.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.tasks.await
 
 class TaskRepository(
@@ -43,8 +45,6 @@ class TaskRepository(
                 db.collection("organizations").document(organizationId)
                     .collection("tasks")
                     .document(empId.toString()+"."+name)
-                    .collection("Tasks")
-                    .document("Task: "+taskId)// Use taskId as document ID
                     .set(taskData)
                     .await()
 
@@ -56,4 +56,63 @@ class TaskRepository(
             throw Exception("Task Upload Failed: ${e.message}")
         }
     }
+
+
+
+    suspend fun fetchAllTasks(): List<Task> {
+        val organizationId=auth.currentUser?.uid?: throw Exception("Unable to Fetch task")
+        val db = FirebaseFirestore.getInstance()
+        val taskList = mutableListOf<Task>()
+
+        try {
+            // Get all documents in the "tasks" collection
+            val querySnapshot: QuerySnapshot = db.collection("organizations")
+                .document(organizationId)
+                .collection("tasks")
+                .get()
+                .await()
+
+            // Convert each document to Task
+            for (document in querySnapshot.documents) {
+                val task = document.toObject(Task::class.java)
+                if (task != null) {
+                    taskList.add(task)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return taskList
+    }
+
+    suspend fun fetchTasksForEmployee(organizationId: String, empId: String): List<Task> {
+        val db = FirebaseFirestore.getInstance()
+        val taskList = mutableListOf<Task>()
+
+        try {
+            // Query documents where empId matches
+            val querySnapshot: QuerySnapshot = db.collection("organizations")
+                .document(organizationId)
+                .collection("tasks")
+                .whereEqualTo("empId", empId)
+                .get()
+                .await()
+
+            // Convert each document to Task
+            for (document in querySnapshot.documents) {
+                val task = document.toObject(Task::class.java)
+                if (task != null) {
+                    taskList.add(task)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return taskList
+    }
+
+
+
 }

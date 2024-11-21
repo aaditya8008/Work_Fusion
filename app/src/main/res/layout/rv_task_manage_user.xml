@@ -74,8 +74,8 @@
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="41dp"
             android:padding="8dp"
             android:scrollbarSize="18.25dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView21"

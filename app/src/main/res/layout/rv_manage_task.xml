@@ -44,13 +44,13 @@
                 tools:layout_editor_absoluteY="31dp" />
 
             <TextView
-                android:id="@+id/textView44"
+                android:id="@+id/employee_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/baseline_perm_identity_24"
                 android:drawablePadding="2dp"
                 android:padding="3dp"
-                android:text=": aaditya"
+                android:text=" aaditya"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"

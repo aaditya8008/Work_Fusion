@@ -15,8 +15,9 @@
             android:id="@+id/textView34"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="124dp"
             android:fontFamily="@font/autour_one"
+            android:paddingTop="124dp"
+            android:paddingBottom="24dp"
             android:text="Leave Applications"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,6 +31,7 @@
             app:cardBackgroundColor="#dcf0e3"
             app:cardElevation="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView34">
 
             <androidx.constraintlayout.widget.ConstraintLayout

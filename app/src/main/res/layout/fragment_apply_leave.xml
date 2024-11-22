@@ -17,8 +17,9 @@
             android:id="@+id/textView27"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="124dp"
             android:fontFamily="@font/autour_one"
+            android:paddingTop="124dp"
+            android:paddingBottom="24dp"
             android:text="Apply For Leave"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,10 +27,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="404dp"
-            android:layout_height="682dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:elevation="30dp"
+            android:paddingHorizontal="50dp"
             app:cardBackgroundColor="#dcf0e3"
             app:cardElevation="30dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,8 +38,10 @@
             app:layout_constraintTop_toBottomOf="@+id/textView27">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="50dp"
+                android:paddingHorizontal="0dp">
 
                 <TextView
                     android:id="@+id/textView29"
@@ -53,25 +56,25 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/editTextText"
+                    android:id="@+id/subjectInput"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="100"
+                    android:ems="200"
                     android:hint="Enter Subject"
                     android:inputType="text"
-                    app:layout_constraintEnd_toEndOf="@+id/textView29"
-                    app:layout_constraintStart_toStartOf="@+id/textView29"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
                 <EditText
-                    android:id="@+id/editTextTextPostalAddress"
+                    android:id="@+id/MessageInput"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="250"
                     android:hint="Type Message"
                     android:inputType="textPostalAddress"
-                    app:layout_constraintEnd_toEndOf="@+id/editTextText"
-                    app:layout_constraintStart_toStartOf="@+id/editTextText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
                 <TextView
@@ -82,9 +85,9 @@
                     android:text="Message"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/editTextText"
-                    app:layout_constraintStart_toStartOf="@+id/editTextText"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+                    app:layout_constraintEnd_toEndOf="@+id/subjectInput"
+                    app:layout_constraintStart_toStartOf="@+id/subjectInput"
+                    app:layout_constraintTop_toBottomOf="@+id/subjectInput" />
 
                 <TextView
                     android:id="@+id/textView31"
@@ -95,17 +98,17 @@
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/editTextTextPostalAddress"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPostalAddress" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/MessageInput" />
 
                 <EditText
-                    android:id="@+id/editTextDate"
+                    android:id="@+id/start_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="date"
-                    app:layout_constraintEnd_toEndOf="@+id/textView31"
-                    app:layout_constraintStart_toStartOf="@+id/textView31"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
                 <TextView
@@ -116,18 +119,18 @@
                     android:text="End date"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/editTextDate"
-                    app:layout_constraintStart_toStartOf="@+id/editTextDate"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+                    app:layout_constraintEnd_toEndOf="@+id/start_date"
+                    app:layout_constraintStart_toStartOf="@+id/start_date"
+                    app:layout_constraintTop_toBottomOf="@+id/start_date" />
 
                 <EditText
-                    android:id="@+id/editTextDate2"
+                    android:id="@+id/end_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="date"
-                    app:layout_constraintEnd_toEndOf="@+id/textView32"
-                    app:layout_constraintStart_toStartOf="@+id/textView32"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
                 <TextView
@@ -138,30 +141,31 @@
                     android:text="Type "
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/editTextDate2"
-                    app:layout_constraintStart_toStartOf="@+id/editTextDate2"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextDate2" />
+                    app:layout_constraintEnd_toEndOf="@+id/end_date"
+                    app:layout_constraintStart_toStartOf="@+id/end_date"
+                    app:layout_constraintTop_toBottomOf="@+id/end_date" />
 
                 <Spinner
-                    android:id="@+id/spinner2"
+                    android:id="@+id/spinner_leave_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="@+id/textView33"
-                    app:layout_constraintStart_toStartOf="@+id/textView33"
+                    android:padding="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
                 <Button
                     android:id="@+id/submit2"
-                    android:layout_width="210dp"
-                    android:layout_height="57dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:backgroundTint="#1930AD"
+                    android:paddingHorizontal="80dp"
                     android:text="Submit"
                     android:textColorLink="#090909"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.457"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_leave_type" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

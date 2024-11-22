@@ -15,8 +15,9 @@
             android:id="@+id/textView41"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="124dp"
             android:fontFamily="@font/autour_one"
+            android:paddingTop="124dp"
+            android:paddingBottom="24dp"
             android:text="Assigned Tasks"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +27,6 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="637dp"
-            android:layout_marginTop="24dp"
             android:elevation="30dp"
             app:cardBackgroundColor="#dcf0e3"
             app:cardElevation="30dp"

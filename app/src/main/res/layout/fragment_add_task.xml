@@ -17,9 +17,9 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="124dp"
-            android:background="#34354B46"
+            android:background="#00354B46"
             android:fontFamily="@font/autour_one"
+            android:paddingTop="124dp"
             android:text="Create New Task"
             android:textColor="#000000"
             android:textSize="30sp"
@@ -29,9 +29,10 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView4"
-            android:layout_width="350dp"
-            android:layout_height="600dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:elevation="30dp"
+            android:paddingHorizontal="50dp"
             app:cardBackgroundColor="#dcf0e3"
             app:cardElevation="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -40,8 +41,10 @@
             app:layout_constraintTop_toBottomOf="@+id/textView7">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#DCF0E3"
+                android:padding="50dp">
 
                 <TextView
                     android:id="@+id/textView10"
@@ -83,13 +86,13 @@
 
                 <EditText
                     android:id="@+id/descriptionInput"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="top|start"
                     android:hint="Enter description"
                     android:inputType="textMultiLine"
                     android:lines="4"
-                    android:padding="20dp"
+                    android:padding="50dp"
                     android:scrollbars="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -99,14 +102,12 @@
                     android:id="@+id/startDateCalender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="150dp"
                     android:padding="20dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="100dp"
                     android:text="Start Date"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/descriptionInput"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/descriptionInput" />
 
@@ -114,28 +115,27 @@
                     android:id="@+id/endDateCalender"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="150dp"
                     android:padding="20dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingLeft="100dp"
+                    android:paddingRight="50dp"
                     android:text="End Date"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/descriptionInput"
+                    app:layout_constraintStart_toEndOf="@+id/startDateCalender"
                     app:layout_constraintTop_toBottomOf="@+id/descriptionInput" />
 
                 <Button
                     android:id="@+id/create"
-                    android:layout_width="210dp"
-                    android:layout_height="57dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:backgroundTint="#1930AD"
+                    android:paddingHorizontal="70dp"
                     android:text="Create"
                     android:textColorLink="#090909"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/startDateCalender" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

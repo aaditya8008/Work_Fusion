@@ -36,11 +36,25 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
     }
 
     // Function to fetch all tasks
-    fun fetchTasks(organizationId: String) {
+    fun fetchTasks() {
         viewModelScope.launch {
             try {
                 // Fetch tasks from the repository and post them to LiveData
                 val tasks = taskRepository.fetchAllTasks()
+                _taskList.postValue(tasks)
+            } catch (e: Exception) {
+                // Handle errors (e.g., log them or show an error state)
+                e.printStackTrace()
+                _taskList.postValue(emptyList()) // Clear task list on failure
+            }
+        }
+    }
+
+    fun fetchTasksForEmployee() {
+        viewModelScope.launch {
+            try {
+                // Fetch tasks from the repository and post them to LiveData
+                val tasks = taskRepository.fetchTasksForEmployee()
                 _taskList.postValue(tasks)
             } catch (e: Exception) {
                 // Handle errors (e.g., log them or show an error state)

@@ -1,10 +1,13 @@
 package com.example.workfusion.model
 
+
+
 data class Task(
-    val taskId: String,
-    val empId: String,
-    val name: String,
-    val description: String,
-    val startDate: String,
-    val endDate: String
+    val taskId: Long = 0L,          // Default value
+    val empId: Long = 0L,           // Default value
+    val name: String = "",          // Default value
+    val description: String = "",   // Default value
+    val status: String = "Not Started", // Default value
+    val startDate: String = "",     // Default value
+    val endDate: String = ""        // Default value
 )

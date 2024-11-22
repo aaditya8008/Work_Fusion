@@ -37,8 +37,10 @@ class TaskRepository(
                     "empId" to empId,
                     "name" to name,
                     "description" to description,
+                    "status" to "Not Started",
                     "startDate" to startDate,
-                    "endDate" to endDate
+                    "endDate" to endDate,
+                    "organizationId" to organizationId
                 )
 
                 // Upload task to Firestore
@@ -47,6 +49,11 @@ class TaskRepository(
                     .document(empId.toString()+"."+name)
                     .set(taskData)
                     .await()
+                db.collection("tasks")
+                    .document(empId.toString()+"."+name)
+                    .set(taskData)
+                    .await()
+
 
                 Log.d("Firestore", "Task successfully uploaded with taskId: $taskId")
             } else {
@@ -65,6 +72,7 @@ class TaskRepository(
         val taskList = mutableListOf<Task>()
 
         try {
+
             // Get all documents in the "tasks" collection
             val querySnapshot: QuerySnapshot = db.collection("organizations")
                 .document(organizationId)
@@ -86,32 +94,51 @@ class TaskRepository(
         return taskList
     }
 
-    suspend fun fetchTasksForEmployee(organizationId: String, empId: String): List<Task> {
+    suspend fun fetchTasksForEmployee(): List<Task> {
+        val empUid = auth.currentUser?.uid ?: throw Exception("Unable to Fetch task: No authenticated user")
         val db = FirebaseFirestore.getInstance()
         val taskList = mutableListOf<Task>()
 
         try {
-            // Query documents where empId matches
-            val querySnapshot: QuerySnapshot = db.collection("organizations")
-                .document(organizationId)
-                .collection("tasks")
-                .whereEqualTo("empId", empId)
+            // Fetch organizationId for the employee
+            val documentSnapshot = db.collection("employees")
+                .document(empUid) // Use the employee's UID to get employee data
                 .get()
                 .await()
 
-            // Convert each document to Task
-            for (document in querySnapshot.documents) {
+            // Check if the organizationId and empId exist
+            val organizationId = documentSnapshot.getString("organizationId")
+                ?: throw Exception("Organization ID not found for employee: $empUid")
+            val empId = documentSnapshot.getLong("empId")
+                ?: throw Exception("Employee ID not found for employee")
+
+
+// After fetching tasks
+            Log.d("TaskFetch", "Tasks fetched for empId: $empId")
+
+            val querySnapshot = db.collection("tasks")
+                .whereEqualTo("empId", empId)  // This fetches only tasks with the specific empId
+                .get()  // Get the query results
+                .await()  // Wait for the query to complete asynchronously
+
+            // Iterate through the querySnapshot
+            for (document in querySnapshot) {
                 val task = document.toObject(Task::class.java)
-                if (task != null) {
-                    taskList.add(task)
-                }
+                Log.d("TaskFetch", "Checking task with empId: ${task.empId}")
+
+                // No need for the extra check here, as Firestore is already filtered by empId
+                Log.d("TaskFetch", "Task fetched: $task")
+                taskList.add(task)  // Add the task to the list
             }
+
         } catch (e: Exception) {
             e.printStackTrace()
+            throw Exception("Error fetching tasks for employee: ${e.message}")
         }
 
         return taskList
     }
+
 
 
 

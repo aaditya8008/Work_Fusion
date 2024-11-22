@@ -63,7 +63,6 @@ class AddTask : Fragment() {
                 // Call ViewModel function to handle task creation with Date objects
                 taskViewModel.uploadTask(
                     empId = empId.toLong(),
-
                     name = employee.substringAfter('.'),
                     description = description,
                     startDate = startDate!!,

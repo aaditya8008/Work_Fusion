@@ -58,12 +58,14 @@ class UserRepository(
                 "name" to name,
                 "email" to email,
                 "userType" to userType,
-                "phoneNumber" to phoneNumber
+                "phoneNumber" to phoneNumber,
+                "organizationId" to organizationId
             )
 
             // Save employee data under the organization
             db.collection("organizations").document(organizationId)
                 .collection("employees").document(auth.currentUser!!.uid).set(employee).await()
+            db.collection("employees").document(auth.currentUser!!.uid).set(employee).await()
 
             Result.success(authResult)
         } catch (e: Exception) {

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DCF0E3"
     tools:context=".LoadingFragement">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
-        >
+        android:background="#DCF0E3">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/mail"

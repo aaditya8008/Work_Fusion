@@ -28,7 +28,7 @@
             android:layout_height="637dp"
             android:layout_marginTop="24dp"
             android:elevation="30dp"
-            app:cardBackgroundColor="#72DBBD"
+            app:cardBackgroundColor="#dcf0e3"
             app:cardElevation="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

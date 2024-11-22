@@ -31,7 +31,7 @@
             android:layout_width="446dp"
             android:layout_height="725dp"
             android:layout_marginTop="18dp"
-            app:cardBackgroundColor="#72DBBD"
+            app:cardBackgroundColor="#dcf0e3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9">

@@ -3,5 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="button_home_color">#1930AD</color>
-    <color name="background_color">#B0F0E0</color>
+    <color name="background_color">#FFFFFF</color>
+    <color name="cardViewBg">#B7256AFD</color>
 </resources>

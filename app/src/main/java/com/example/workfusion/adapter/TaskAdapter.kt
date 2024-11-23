@@ -25,8 +25,8 @@ class TaskAdapter(private val tasks: List<Task>) : RecyclerView.Adapter<TaskAdap
             holder.binding.description.text=tasks.get(position).description
             holder.binding.startDate.text=tasks.get(position).startDate
             holder.binding.endDate.text=tasks.get(position).endDate
-            holder.binding.status.text="status: "+tasks.get(position).status
-            holder.binding.taskId.text="Task Id: "+tasks.get(position).taskId
+            holder.binding.status.text=tasks.get(position).status
+            holder.binding.taskId.text=tasks.get(position).taskId.toString()
         }
     }
 

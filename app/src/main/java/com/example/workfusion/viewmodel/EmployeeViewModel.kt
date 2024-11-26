@@ -8,17 +8,21 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class EmployeeViewModel(private val repository: EmployeeRepository) : ViewModel() {
-    private val _allEmployees = MutableStateFlow<List<Map<String, Any>>?>(null)
-    val allEmployees: StateFlow<List<Map<String, Any>>?> get() = _allEmployees
 
     private val _organizationId = MutableStateFlow<String?>(null)
     val organizationId: StateFlow<String?> get() = _organizationId
+
+    private val _allEmployees = MutableStateFlow<List<Map<String, Any>>?>(null)
+    val allEmployees: StateFlow<List<Map<String, Any>>?> get() = _allEmployees
+
+    private val _employeeDetails = MutableStateFlow<Map<String, Any>?>(null)
+    val employeeDetails: StateFlow<Map<String, Any>?> get() = _employeeDetails
 
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> get() = _error
 
     /**
-     * Fetch the organization ID and update the state flow.
+     * Fetch the organization ID from the repository.
      */
     fun fetchOrganizationId() {
         viewModelScope.launch {
@@ -32,29 +36,41 @@ class EmployeeViewModel(private val repository: EmployeeRepository) : ViewModel(
     }
 
     /**
-     * Fetch all employees after ensuring the organization ID is retrieved.
+     * Fetch all employees of the organization.
      */
     fun fetchAllEmployees() {
         viewModelScope.launch {
             try {
-                // Ensure organization ID is fetched
                 val orgId = _organizationId.value ?: run {
                     fetchOrganizationId()
-                    // Wait for the organization ID to be updated
-                    _organizationId.value ?: throw Exception("Organization ID not found.")
+                    _organizationId.value ?: throw Exception("Organization ID not available.")
                 }
 
-                // Fetch employees based on the organization ID
                 val employees = repository.getAllEmployeeDetails(orgId)
                 _allEmployees.value = employees
             } catch (e: Exception) {
-                _error.value = "Failed to fetch all employees: ${e.message}"
+                _error.value = "Failed to fetch employees: ${e.message}"
             }
         }
     }
 
     /**
-     * Clear the current error state.
+     * Fetch details of a specific employee by their ID.
+     */
+    fun fetchEmployeeDetails(employeeId: String) {
+        viewModelScope.launch {
+            try {
+                val details = repository.getEmpDetail(employeeId)
+                _employeeDetails.value = details
+            } catch (e: Exception) {
+                _error.value = "Failed to fetch employee details: ${e.message}"
+            }
+        }
+    }
+
+
+    /**
+     * Clear the error state to allow retries or fresh data.
      */
     fun clearError() {
         _error.value = null

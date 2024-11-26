@@ -43,12 +43,7 @@ class TaskRepository(
                     "organizationId" to organizationId
                 )
 
-                // Upload task to Firestore
-                db.collection("organizations").document(organizationId)
-                    .collection("tasks")
-                    .document(empId.toString()+"."+name)
-                    .set(taskData)
-                    .await()
+
                 db.collection("tasks")
                     .document(empId.toString()+"."+name)
                     .set(taskData)

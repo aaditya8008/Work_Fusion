@@ -12,16 +12,17 @@ class LeaveRepository(
     private val auth: FirebaseAuth
 ) {
     suspend fun uploadLeave(
-        empId: Long, name: String, reason: String,
-        startDate: String, endDate: String
+        empId: Long,orgId:String, name: String, reason: String,
+        startDate: String, endDate: String, subject: String, type: String
     ) {
         try {
-            val organizationId = auth.currentUser?.uid ?: throw Exception("Unable to get Id")
+            val organizationId = orgId
             val org = db.collection("organizations").document(organizationId)
-
+            Log.d("LEAVE","Repo $empId $name $reason $startDate $endDate")
             // Get the current leave counter and increment it
             val documentSnapshot = org.get().await()
             if (documentSnapshot.exists()) {
+                Log.d("LEAVE","Inside $empId $name $reason $startDate $endDate")
                 val leaveCounter = documentSnapshot.getLong("leaveCounter") ?: 0L
 
                 // Increment the counter and convert to Long safely
@@ -36,18 +37,15 @@ class LeaveRepository(
                     "empId" to empId,
                     "name" to name,
                     "reason" to reason,
+                    "subject" to subject,
+                    "type" to type,
                     "status" to "Pending",
                     "startDate" to startDate,
                     "endDate" to endDate,
                     "organizationId" to organizationId
                 )
 
-                // Upload leave to Firestore
-                db.collection("organizations").document(organizationId)
-                    .collection("leaves")
-                    .document("$empId.$name")
-                    .set(leaveData)
-                    .await()
+
                 db.collection("leaves")
                     .document("$empId.$name")
                     .set(leaveData)

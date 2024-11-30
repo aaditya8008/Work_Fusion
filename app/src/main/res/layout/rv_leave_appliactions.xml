@@ -70,7 +70,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/employee_name" />
 
             <TextView
-                android:id="@+id/subject"
+                android:id="@+id/type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/baseline_subject_24"
@@ -97,7 +97,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/subject" />
+                app:layout_constraintTop_toBottomOf="@+id/type" />
 
             <Spinner
                 android:id="@+id/spinner_type_of_leave"
@@ -141,7 +141,7 @@
                 android:text="Type "
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/subject"
+                app:layout_constraintBottom_toTopOf="@+id/type"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/employee_name" />
 

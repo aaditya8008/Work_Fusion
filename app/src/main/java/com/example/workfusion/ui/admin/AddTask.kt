@@ -54,7 +54,7 @@ class AddTask : Fragment() {
 // Extract the empId by taking the part before the first dot
             val empId = binding.spinnerEmployee.selectedItem.toString().substringBefore('.').trim() // "1"
             Toast.makeText(requireContext(),"$empId",Toast.LENGTH_LONG).show()
-            val taskId=0
+
 
             // Validate input fields
             if (startDate == null || endDate == null || description.isBlank() || empId.isBlank()) {

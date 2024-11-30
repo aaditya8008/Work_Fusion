@@ -45,7 +45,7 @@ class TaskRepository(
 
 
                 db.collection("tasks")
-                    .document(empId.toString()+"."+name)
+                    .document("$taskId")
                     .set(taskData)
                     .await()
 

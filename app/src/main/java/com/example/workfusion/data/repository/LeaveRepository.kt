@@ -47,7 +47,7 @@ class LeaveRepository(
 
 
                 db.collection("leaves")
-                    .document("$empId.$name")
+                    .document("$leaveId")
                     .set(leaveData)
                     .await()
 

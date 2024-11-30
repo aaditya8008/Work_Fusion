@@ -1,59 +1,76 @@
 package com.example.workfusion.ui.admin
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.workfusion.R
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.workfusion.adapter.TaskAdapter
+import com.example.workfusion.data.repository.TaskRepository
+import com.example.workfusion.databinding.FragmentManageTaskBinding
+import com.example.workfusion.utils.TaskViewModelFactory
+import com.example.workfusion.viewmodel.TaskViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ManageTask.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ManageTask : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentManageTaskBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var taskAdapter: TaskAdapter
+    private val taskViewModel: TaskViewModel by viewModels {
+        TaskViewModelFactory(TaskRepository(FirebaseFirestore.getInstance(), FirebaseAuth.getInstance()))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            // Handle any arguments if passed
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manage_task, container, false)
+    ): View {
+        _binding = FragmentManageTaskBinding.inflate(inflater, container, false)
+        setupRecyclerView()
+        observeTasks()
+
+        return binding.root
+    }
+
+    private fun observeTasks() {
+        taskViewModel.fetchTasks() // Assuming admin-specific task fetching
+        taskViewModel.taskList.observe(viewLifecycleOwner) { taskList ->
+            Toast.makeText(requireContext(), "Tasks Count: ${taskList.size}", Toast.LENGTH_SHORT).show()
+            taskAdapter = TaskAdapter(taskList)
+            binding.rvManagetaskAdmin.adapter = taskAdapter
+        }
+    }
+
+    private fun setupRecyclerView() {
+        taskAdapter = TaskAdapter(emptyList())
+        binding.rvManagetaskAdmin.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = taskAdapter
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Prevent memory leaks
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ManageTask.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             ManageTask().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putString("ARG_PARAM1", param1)
+                    putString("ARG_PARAM2", param2)
                 }
             }
     }

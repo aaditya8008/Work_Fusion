@@ -10,7 +10,7 @@ class Leave (
     val subject: String="",
     val orgId:String = "",
     val reason: String = "",   // Default value
-    val status: String = "Not Started", // Default value
+    var status: String = "Not Started", // Default value
     val startDate: String = "",     // Default value
     val endDate: String = ""        // Default value
 

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -129,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Reject"
-
+android:textColor="@color/white"
                 android:background="@drawable/background_button_reject"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/status" />
@@ -140,6 +141,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_rectangle_lightblue"
                 android:text="Accept"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/message" />
         </androidx.constraintlayout.widget.ConstraintLayout>

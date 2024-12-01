@@ -33,11 +33,14 @@ class LeaveAdminAdapter(
 
             acceptButton.setOnClickListener {
                 leaveViewModel.updateStatus(leave.leaveId, "Accepted") // Call ViewModel's update function
+                leave.status="Accepted"
+                notifyDataSetChanged()
 
             }
             rejectButton.setOnClickListener {
                 leaveViewModel.updateStatus(leave.leaveId, "Rejected")
-
+                leave.status="Rejected"
+                notifyDataSetChanged()
             }
         }
     }

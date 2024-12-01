@@ -11,11 +11,13 @@ class LeaveRepository(
     private val db: FirebaseFirestore,
     private val auth: FirebaseAuth
 ) {
+    val organizationId = auth.currentUser?.uid ?: throw Exception("Unable to Fetch leaves")
     suspend fun updateLeaveStatus(leaveId: Long, newStatus: String) {
         try {
             // Query Firestore for the document where leaveId matches
             val querySnapshot = db.collection("leaves")
                 .whereEqualTo("leaveId", leaveId)
+                .whereEqualTo("organizationId",organizationId)
                 .get()
                 .await()
 
@@ -86,13 +88,14 @@ class LeaveRepository(
     }
 
     suspend fun fetchAllLeaves(): List<Leave> {
-        val organizationId = auth.currentUser?.uid ?: throw Exception("Unable to Fetch leaves")
+
         val leaveList = mutableListOf<Leave>()
 
         try {
             // Get all documents in the "leaves" collection
             val querySnapshot: QuerySnapshot = db
                 .collection("leaves")
+                .whereEqualTo("organizationId",organizationId)
                 .get()
                 .await()
 
@@ -130,6 +133,7 @@ class LeaveRepository(
             // Fetch leaves for the specific employee
             val querySnapshot = db.collection("leaves")
                 .whereEqualTo("empId", empId) // Filter by empId
+                .whereEqualTo("organizationId",organizationId)
                 .get()
                 .await()
 

@@ -11,6 +11,7 @@ class TaskRepository(
     private val db: FirebaseFirestore,
     private val auth: FirebaseAuth
 ) {
+    val organizationId=auth.currentUser?.uid?: throw Exception("Unable to Fetch task")
     suspend fun uploadTask(
         empId: Long, name: String, description: String,
         startDate: String, endDate: String
@@ -62,7 +63,7 @@ class TaskRepository(
 
 
     suspend fun fetchAllTasks(): List<Task> {
-        val organizationId=auth.currentUser?.uid?: throw Exception("Unable to Fetch task")
+
         val db = FirebaseFirestore.getInstance()
         val taskList = mutableListOf<Task>()
 
@@ -72,6 +73,7 @@ class TaskRepository(
             val querySnapshot: QuerySnapshot = db
 
                 .collection("tasks")
+                .whereEqualTo("organizationId",organizationId)
                 .get()
                 .await()
 
@@ -113,6 +115,7 @@ class TaskRepository(
 
             val querySnapshot = db.collection("tasks")
                 .whereEqualTo("empId", empId)  // This fetches only tasks with the specific empId
+                .whereEqualTo("organizationId",organizationId)
                 .get()  // Get the query results
                 .await()  // Wait for the query to complete asynchronously
 
@@ -139,6 +142,7 @@ class TaskRepository(
             // Query Firestore for the task document where taskId matches
             val querySnapshot = db.collection("tasks")
                 .whereEqualTo("taskId", taskId)
+                .whereEqualTo("organizationId",organizationId)
                 .get()
                 .await()
 

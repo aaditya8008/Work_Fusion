@@ -134,6 +134,30 @@ class TaskRepository(
         return taskList
     }
 
+    suspend fun updateTaskStatus(taskId: Long, newStatus: String) {
+        try {
+            // Query Firestore for the task document where taskId matches
+            val querySnapshot = db.collection("tasks")
+                .whereEqualTo("taskId", taskId)
+                .get()
+                .await()
+
+            // Check if the query returned any documents
+            if (!querySnapshot.isEmpty) {
+                // Assuming taskId is unique, get the first document
+                val document = querySnapshot.documents[0]
+
+                // Update the status field in the matching document
+                document.reference.update("status", newStatus).await()
+                Log.d("Firestore", "Task status updated successfully for taskId: $taskId")
+            } else {
+                throw Exception("No task document found with taskId: $taskId")
+            }
+        } catch (e: Exception) {
+            Log.e("Firestore", "Error updating task status: ${e.message}")
+            throw Exception("Error updating task status: ${e.message}")
+        }
+    }
 
 
 

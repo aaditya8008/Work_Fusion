@@ -1,60 +1,60 @@
 package com.example.workfusion.ui.admin
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.workfusion.R
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.workfusion.adapter.LeaveAdminAdapter
+import com.example.workfusion.data.repository.LeaveRepository
+import com.example.workfusion.databinding.FragmentLeaveApplicationsBinding
+import com.example.workfusion.model.Leave
+import com.example.workfusion.utils.LeaveViewModelFactory
+import com.example.workfusion.viewmodel.LeaveViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [LeaveApplications.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LeaveApplications : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private var _binding: FragmentLeaveApplicationsBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var leaveAdapter: LeaveAdminAdapter
+    private val leaveViewModel: LeaveViewModel by viewModels {
+        LeaveViewModelFactory(LeaveRepository(FirebaseFirestore.getInstance(), FirebaseAuth.getInstance()))
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_leave_applications, container, false)
+    ): View {
+        _binding = FragmentLeaveApplicationsBinding.inflate(inflater, container, false)
+        setupRecyclerView()
+        observeLeaves()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LeaveApplications.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LeaveApplications().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun setupRecyclerView() {
+        leaveAdapter = LeaveAdminAdapter(emptyList(),leaveViewModel)
+        binding.rvLeaveAdmin.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = leaveAdapter
+        }
+    }
+
+    private fun observeLeaves() {
+        leaveViewModel.fetchLeaves()
+        leaveViewModel.leaveList.observe(viewLifecycleOwner) { leaveList ->
+            Toast.makeText(requireContext(), "Total Leaves: ${leaveList.size}", Toast.LENGTH_SHORT).show()
+            leaveAdapter = LeaveAdminAdapter(leaveList,leaveViewModel)
+            binding.rvLeaveAdmin.adapter = leaveAdapter
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Avoid memory leaks
     }
 }

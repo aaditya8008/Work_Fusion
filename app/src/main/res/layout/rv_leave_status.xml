@@ -19,7 +19,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/snoemp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
@@ -41,7 +41,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                app:layout_constraintTop_toBottomOf="@+id/snoemp" />
 
             <TextView
                 android:id="@+id/message"
@@ -79,8 +79,8 @@
                 android:text="1"
                 android:textSize="18.25sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/textView8"
-                app:layout_constraintStart_toEndOf="@+id/textView8"
+                app:layout_constraintBottom_toBottomOf="@+id/snoemp"
+                app:layout_constraintStart_toEndOf="@+id/snoemp"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

@@ -54,6 +54,21 @@ class LeaveViewModel(private val leaveRepository: LeaveRepository) : ViewModel()
             }
         }
     }
+    fun updateStatus(leaveId: Long, newStatus: String){
+        viewModelScope.launch {
+        try {
+
+                leaveRepository.updateLeaveStatus(leaveId,newStatus)
+
+
+        }
+        catch (e: Exception) {
+            // Handle errors (e.g., log them or show an error state)
+            e.printStackTrace()
+
+        }}
+
+    }
 
     // Function to fetch leaves for a specific employee
     fun fetchLeavesForEmployee() {

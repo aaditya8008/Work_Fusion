@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="30dp"
+        app:cardCornerRadius="15dp"
         android:fadingEdgeLength="5dp"
         app:cardBackgroundColor="#dcf0e3"
         app:cardElevation="30dp"
@@ -17,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -36,7 +38,6 @@
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
                 android:padding="3dp"
                 android:text="approved"
                 android:textSize="18sp"
@@ -54,6 +55,8 @@
                 android:text="aaditya"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,18 +71,6 @@
                 app:layout_constraintStart_toEndOf="@+id/textView13"
                 app:layout_constraintTop_toBottomOf="@+id/employee_name" />
 
-            <TextView
-                android:id="@+id/type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/baseline_subject_24"
-                android:drawablePadding="2dp"
-                android:padding="3dp"
-                android:text="on leave"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/type_of_leave" />
 
             <TextView
                 android:id="@+id/message"
@@ -91,29 +82,11 @@
                 android:text="Not feeling well"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/type" />
+                app:layout_constraintTop_toBottomOf="@+id/type_of_leave" />
 
-            <Spinner
-                android:id="@+id/spinner_type_of_leave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="3dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView40"
-                app:layout_constraintTop_toBottomOf="@+id/message" />
-
-            <TextView
-                android:id="@+id/textView40"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="3dp"
-                android:text="Action:"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/message" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -135,7 +108,7 @@
                 android:text="Type "
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/type"
+                app:layout_constraintBottom_toTopOf="@+id/message"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/employee_name" />
 
@@ -150,6 +123,25 @@
                 app:layout_constraintBottom_toBottomOf="@+id/status"
                 app:layout_constraintEnd_toStartOf="@+id/status"
                 app:layout_constraintTop_toTopOf="@+id/status" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/rejectButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reject"
+
+                android:background="@drawable/background_button_reject"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/status" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/acceptButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rectangle_lightblue"
+                android:text="Accept"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/message" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

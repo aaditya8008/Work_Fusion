@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workfusion.R
 import com.example.workfusion.adapter.TaskAdapter
+import com.example.workfusion.adapter.TaskEmpAdapter
 import com.example.workfusion.data.repository.TaskRepository
 import com.example.workfusion.databinding.FragmentAddTaskBinding
 import com.example.workfusion.databinding.FragmentUpdateTasksBinding
@@ -22,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class UpdateTasks : Fragment() {
     private var _binding: FragmentUpdateTasksBinding? = null
     private val binding get() = _binding!!
-    private lateinit var taskAdapter: TaskAdapter
+    private lateinit var taskAdapter: TaskEmpAdapter
     private val taskViewModel: TaskViewModel by viewModels {
         TaskViewModelFactory(TaskRepository(FirebaseFirestore.getInstance(), FirebaseAuth.getInstance()))
     }
@@ -48,7 +49,7 @@ class UpdateTasks : Fragment() {
         taskViewModel.fetchTasksForEmployee()
         taskViewModel.taskList.observe(viewLifecycleOwner){taskList->
             Toast.makeText(requireContext(),"${taskList.size}",Toast.LENGTH_SHORT).show()
-            taskAdapter = TaskAdapter(taskList)
+            taskAdapter = TaskEmpAdapter(taskList,taskViewModel)
             binding.rvTaskEmp.adapter = taskAdapter
 
         }
@@ -56,7 +57,7 @@ class UpdateTasks : Fragment() {
     }
 
     private fun setupRecyclerView() {
-       taskAdapter = TaskAdapter(emptyList())
+       taskAdapter = TaskEmpAdapter(emptyList(),taskViewModel)
         binding.rvTaskEmp.apply {
 
             layoutManager = LinearLayoutManager(requireContext())

@@ -6,40 +6,51 @@ import android.os.Handler
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.workfusion.LoadingFragement
-import com.example.workfusion.MainActivity
 import com.example.workfusion.R
 import com.example.workfusion.databinding.ActivityVerificationBinding
 import com.example.workfusion.ui.admin.HomeAdmin
 import com.example.workfusion.ui.employee.HomeEmployee
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class VerificationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityVerificationBinding
     private val auth = FirebaseAuth.getInstance()
-    var organization:Boolean=false
+    private var organization: Boolean = false
+    private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityVerificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        organization=intent.getBooleanExtra("userType",false)
+
+        organization = intent.getBooleanExtra("userType", false)
         val fragment = LoadingFragement()
 
-// Get the FragmentManager
-        val fragmentManager = supportFragmentManager
-
-// Begin the transaction
-        val transaction = fragmentManager.beginTransaction()
-
-// Replace the container with the fragment
+        // Add the loading fragment
+        val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragmentView, fragment)
-
-// Commit the transaction
         transaction.commit()
 
-        // Check email verification every 5 seconds
-        val handler = Handler()
+        checkEmailVerificationWithTimeout()
+    }
+
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        handleUserRemoval()
+    }
+
+    private fun checkEmailVerificationWithTimeout() {
+        var elapsedTime = 0L
+        val checkInterval = 5000L // 5 seconds
+        val timeout = 60000L // 1 minute
+
         handler.postDelayed(object : Runnable {
             override fun run() {
                 auth.currentUser?.reload()?.addOnCompleteListener { task ->
@@ -50,19 +61,50 @@ class VerificationActivity : AppCompatActivity() {
                                 "Email verified!",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            if(organization) {
+                            handler.removeCallbacksAndMessages(null) // Stop further checks
+                            if (organization) {
                                 navigateToAdminHomeScreen()
-                            }
-                            else{
+                            } else {
                                 navigateToEmpHomeScreen()
                             }
                         } else {
-                            handler.postDelayed(this, 5000)
+                            elapsedTime += checkInterval
+                            if (elapsedTime >= timeout) {
+                                handleUserRemoval()
+                                Toast.makeText(
+                                    this@VerificationActivity,
+                                    "Email not verified within 1 minute. Logged out.",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                navigateToSignUpScreen()
+                            } else {
+                                handler.postDelayed(this, checkInterval)
+                            }
                         }
+                    } else {
+                        Toast.makeText(
+                            this@VerificationActivity,
+                            "Failed to check email verification status.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
-        }, 5000)
+        }, checkInterval)
+    }
+
+    private fun handleUserRemoval() {
+        auth.currentUser?.let { user ->
+            CoroutineScope(Dispatchers.Main).launch {
+                try {
+                    user.delete().await()
+                    auth.signOut()
+                    Toast.makeText(this@VerificationActivity, "User removed due to inactivity.", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Toast.makeText(this@VerificationActivity, "Failed to remove user: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun navigateToEmpHomeScreen() {
@@ -77,7 +119,10 @@ class VerificationActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun navigateToHomeScreen() {
-
+    private fun navigateToSignUpScreen() {
+        val intent = Intent(this, SignupActivity::class.java) // Replace with your login activity
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish()
     }
 }

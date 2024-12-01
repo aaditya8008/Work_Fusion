@@ -1,5 +1,6 @@
 package com.example.workfusion.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,11 +24,15 @@ class LeaveViewModel(private val leaveRepository: LeaveRepository) : ViewModel()
         name: String,
         reason: String,
         startDate: String,
-        endDate: String
+        endDate: String,
+        subject: String,
+        type: String,
+        orgId: String
     ) {
         viewModelScope.launch {
             try {
-                leaveRepository.uploadLeave(empId, name, reason, startDate, endDate)
+                Log.d("LEAVE","view model $empId $name $reason $startDate $endDate")
+                leaveRepository.uploadLeave(empId,orgId, name, reason, startDate, endDate,subject,type)
                 _uploadLeaveResult.value = Result.success("Leave uploaded successfully")
             } catch (e: Exception) {
                 _uploadLeaveResult.value = Result.failure(e)

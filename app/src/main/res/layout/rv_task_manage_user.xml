@@ -12,18 +12,33 @@
         android:layout_width="match_parent"
         android:padding="5dp"
         android:layout_height="wrap_content">
-
         <TextView
-            android:id="@+id/snoemp"
-            android:layout_width="match_parent"
+            android:id="@+id/sn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:padding="8dp"
-            android:text="S.No.: 1"
+            android:paddingTop="8dp"
+            android:paddingLeft="8dp"
+            android:paddingBottom="8dp"
+            android:paddingRight="0dp"
+            android:text="S.No.:"
             android:textSize="18.25sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/snoemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:padding="8dp"
+            android:text="1"
+            android:textSize="18.25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/sn"
+            app:layout_constraintStart_toEndOf="@+id/sn"
+            app:layout_constraintTop_toTopOf="@+id/sn" />
 
         <TextView
             android:id="@+id/descriptionEmp"

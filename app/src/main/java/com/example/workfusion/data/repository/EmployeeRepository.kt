@@ -16,6 +16,7 @@ class EmployeeRepository(
         return try {
             val employeeQuery = db
                 .collection("employees")
+                .whereEqualTo("organizationId",organizationId)
                 .get()
                 .await()
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="dropdown_items">
-        <item>Option 1</item>
-        <item>Option 2</item>
-        <item>Option 3</item>
-        <item>Option 42</item>
+        <item>Sick Leave (SL)</item>
+        <item>Casual Leave (CL)</item>
+        <item>Maternity Leave</item>
+        <item>Privilege Leave</item>
     </string-array>
 </resources>

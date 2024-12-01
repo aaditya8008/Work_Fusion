@@ -27,4 +27,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/logout"
+        android:padding="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_width="55dp"
+        android:clickable="true"
+        android:layout_height="55dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/exit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

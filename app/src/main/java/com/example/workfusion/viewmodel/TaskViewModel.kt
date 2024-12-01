@@ -63,4 +63,17 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
             }
         }
     }
+
+    fun updateStatus(taskId: Long, newStatus: String){
+        viewModelScope.launch {
+            try{
+                taskRepository.updateTaskStatus(taskId,newStatus)
+            }
+            catch (e: Exception) {
+                // Handle errors (e.g., log them or show an error state)
+                e.printStackTrace()
+
+            }
+        }
+    }
 }

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:background="#00354B46"
             android:fontFamily="@font/autour_one"
-            android:paddingTop="124dp"
+            android:paddingTop="24dp"
             android:text="Create New Task"
             android:textColor="#000000"
             android:textSize="30sp"

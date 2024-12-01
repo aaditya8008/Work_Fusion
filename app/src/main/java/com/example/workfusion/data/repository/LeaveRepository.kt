@@ -11,6 +11,31 @@ class LeaveRepository(
     private val db: FirebaseFirestore,
     private val auth: FirebaseAuth
 ) {
+    suspend fun updateLeaveStatus(leaveId: Long, newStatus: String) {
+        try {
+            // Query Firestore for the document where leaveId matches
+            val querySnapshot = db.collection("leaves")
+                .whereEqualTo("leaveId", leaveId)
+                .get()
+                .await()
+
+            // Check if the query returned any documents
+            if (!querySnapshot.isEmpty) {
+                // Assuming leaveId is unique, get the first document
+                val document = querySnapshot.documents[0]
+
+                // Update the status field in the matching document
+                document.reference.update("status", newStatus).await()
+                Log.d("Firestore", "Leave status updated successfully for leaveId: $leaveId")
+            } else {
+                throw Exception("No leave document found with leaveId: $leaveId")
+            }
+        } catch (e: Exception) {
+            Log.e("Firestore", "Error updating leave status: ${e.message}")
+            throw Exception("Error updating leave status: ${e.message}")
+        }
+    }
+
     suspend fun uploadLeave(
         empId: Long,orgId:String, name: String, reason: String,
         startDate: String, endDate: String, subject: String, type: String
@@ -66,8 +91,7 @@ class LeaveRepository(
 
         try {
             // Get all documents in the "leaves" collection
-            val querySnapshot: QuerySnapshot = db.collection("organizations")
-                .document(organizationId)
+            val querySnapshot: QuerySnapshot = db
                 .collection("leaves")
                 .get()
                 .await()
@@ -122,4 +146,5 @@ class LeaveRepository(
 
         return leaveList
     }
+
 }

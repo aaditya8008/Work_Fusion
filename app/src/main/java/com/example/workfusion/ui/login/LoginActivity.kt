@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
                             userViewModel.checkUserType(
                                 UserId = userId,
                                 onSuccess = { userType ->
-                                    // Handle the user type
+
                                     if (userType == "organization") {
                                         navigateToAdminScreen()
                                     } else if (userType == "employee") {
@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
                                     }
                                 },
                                 onFailure = { exception ->
-                                    // Handle the error
+
                                     Toast.makeText(this, "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
                                 }
                             )

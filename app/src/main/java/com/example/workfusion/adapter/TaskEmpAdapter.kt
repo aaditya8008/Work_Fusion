@@ -12,10 +12,10 @@ import com.example.workfusion.viewmodel.TaskViewModel
 class TaskEmpAdapter(private val tasks: List<Task>,
                      private val taskViewModel: TaskViewModel) : RecyclerView.Adapter<TaskEmpAdapter.TaskViewHolder>() {
 
-    // ViewHolder using View Binding
+
     class TaskViewHolder(val binding: RvTaskManageUserBinding) : RecyclerView.ViewHolder(binding.root)
 
-    // Initialize the adapter for the spinner outside of onBindViewHolder to improve performance
+
     private val taskList = listOf("Not Started", "In Progress", "Completed")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -26,7 +26,6 @@ class TaskEmpAdapter(private val tasks: List<Task>,
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = tasks[position]
 
-        // Access views directly using binding
         holder.binding.apply {
             snoemp.text = task.taskId.toString()
             startDateemp.text = task.startDate
@@ -34,9 +33,9 @@ class TaskEmpAdapter(private val tasks: List<Task>,
             status.text = task.status
             descriptionEmp.text = task.description
 
-            // Set spinner adapter using the context of the view
+
             val adapter = ArrayAdapter(
-                root.context, // Use root.context instead of getSystemClassLoader
+                root.context,
                 R.layout.simple_spinner_item,
                 taskList
             ).apply {

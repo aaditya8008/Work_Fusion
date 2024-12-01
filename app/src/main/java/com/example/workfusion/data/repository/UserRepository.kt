@@ -10,7 +10,6 @@ class UserRepository(
     private val db: FirebaseFirestore
 ) {
 
-    // Sign up organization
     suspend fun signupOrganization(organizationName: String, email: String, password: String,userType:String): Result<AuthResult> {
         return try {
             val authResult = auth.createUserWithEmailAndPassword(email, password).await()
@@ -19,7 +18,7 @@ class UserRepository(
                 "email" to email,
                 "userType" to userType,
                 "employeeCounter" to 0L,
-                "taskCounter" to 0L,// To track number of employees
+                "taskCounter" to 0L,
                 "leaveCounter" to 0L
             )
             db.collection("organizations").document(auth.currentUser!!.uid).set(organization).await()
@@ -53,7 +52,7 @@ class UserRepository(
             // Proceed with employee signup in Firebase Auth
             val authResult = auth.createUserWithEmailAndPassword(email, password).await()
 
-            // Create the employee document with the new empId
+
             val employee = hashMapOf(
                 "empId" to newEmpId,
                 "name" to name,
@@ -63,7 +62,6 @@ class UserRepository(
                 "organizationId" to organizationId
             )
 
-            // Save employee data under the organization
             db.collection("organizations").document(organizationId)
                 .collection("employees").document(auth.currentUser!!.uid).set(employee).await()
             db.collection("employees").document(auth.currentUser!!.uid).set(employee).await()

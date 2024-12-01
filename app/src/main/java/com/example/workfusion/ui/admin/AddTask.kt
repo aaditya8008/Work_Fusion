@@ -51,7 +51,7 @@ class AddTask : Fragment() {
             val description = binding.descriptionInput.text.toString()
 
 
-// Extract the empId by taking the part before the first dot
+
             val empId = binding.spinnerEmployee.selectedItem.toString().substringBefore('.').trim() // "1"
             Toast.makeText(requireContext(),"$empId",Toast.LENGTH_LONG).show()
 
@@ -60,7 +60,7 @@ class AddTask : Fragment() {
             if (startDate == null || endDate == null || description.isBlank() || empId.isBlank()) {
                 Toast.makeText(requireContext(), "Please fill all the fields", Toast.LENGTH_SHORT).show()
             } else {
-                // Call ViewModel function to handle task creation with Date objects
+
                 taskViewModel.uploadTask(
                     empId = empId.toLong(),
                     name = employee.substringAfter('.'),
@@ -99,7 +99,7 @@ class AddTask : Fragment() {
         DatePickerDialog(
             requireContext(),
             { _, selectedYear, selectedMonth, selectedDay ->
-                // Format the selected date
+
                 val formattedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
                 onDateSelected(formattedDate)
             },

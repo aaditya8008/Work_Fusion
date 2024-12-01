@@ -19,7 +19,6 @@ class TaskAdapter(private val tasks: List<Task>) : RecyclerView.Adapter<TaskAdap
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = tasks[position]
 
-        // Access views directly using binding
         holder.binding.apply {
             holder.binding.name.text=tasks.get(position).name
             holder.binding.description.text=tasks.get(position).description

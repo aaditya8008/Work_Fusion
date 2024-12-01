@@ -21,9 +21,7 @@ class EmployeeViewModel(private val repository: EmployeeRepository) : ViewModel(
     private val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> get() = _error
 
-    /**
-     * Fetch the organization ID from the repository.
-     */
+
     fun fetchOrganizationId() {
         viewModelScope.launch {
             try {
@@ -35,9 +33,6 @@ class EmployeeViewModel(private val repository: EmployeeRepository) : ViewModel(
         }
     }
 
-    /**
-     * Fetch all employees of the organization.
-     */
     fun fetchAllEmployees() {
         viewModelScope.launch {
             try {
@@ -54,9 +49,7 @@ class EmployeeViewModel(private val repository: EmployeeRepository) : ViewModel(
         }
     }
 
-    /**
-     * Fetch details of a specific employee by their ID.
-     */
+
     fun fetchEmployeeDetails(employeeId: String) {
         viewModelScope.launch {
             try {
@@ -69,9 +62,6 @@ class EmployeeViewModel(private val repository: EmployeeRepository) : ViewModel(
     }
 
 
-    /**
-     * Clear the error state to allow retries or fresh data.
-     */
     fun clearError() {
         _error.value = null
     }

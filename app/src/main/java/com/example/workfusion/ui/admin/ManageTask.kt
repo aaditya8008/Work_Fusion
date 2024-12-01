@@ -27,7 +27,6 @@ class ManageTask : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            // Handle any arguments if passed
         }
     }
 
@@ -43,7 +42,7 @@ class ManageTask : Fragment() {
     }
 
     private fun observeTasks() {
-        taskViewModel.fetchTasks() // Assuming admin-specific task fetching
+        taskViewModel.fetchTasks()
         taskViewModel.taskList.observe(viewLifecycleOwner) { taskList ->
             Toast.makeText(requireContext(), "Tasks Count: ${taskList.size}", Toast.LENGTH_SHORT).show()
             taskAdapter = TaskAdapter(taskList)
@@ -61,7 +60,7 @@ class ManageTask : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // Prevent memory leaks
+        _binding = null
     }
 
     companion object {

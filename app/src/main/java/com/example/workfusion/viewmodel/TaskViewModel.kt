@@ -13,11 +13,11 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
     private val _uploadTaskResult = MutableLiveData<Result<String>>()
     val uploadTaskResult: LiveData<Result<String>> get() = _uploadTaskResult
 
-    // MutableLiveData to hold the list of tasks
+    //hold the list of tasks
     private val _taskList = MutableLiveData<List<Task>>()
     val taskList: LiveData<List<Task>> get() = _taskList
 
-    // Function to upload a task
+    //  upload a task
     fun uploadTask(
         empId: Long,
         name: String,
@@ -35,17 +35,16 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
         }
     }
 
-    // Function to fetch all tasks
+    //  fetch all tasks
     fun fetchTasks() {
         viewModelScope.launch {
             try {
-                // Fetch tasks from the repository and post them to LiveData
+
                 val tasks = taskRepository.fetchAllTasks()
                 _taskList.postValue(tasks)
             } catch (e: Exception) {
-                // Handle errors (e.g., log them or show an error state)
                 e.printStackTrace()
-                _taskList.postValue(emptyList()) // Clear task list on failure
+                _taskList.postValue(emptyList())
             }
         }
     }
@@ -57,7 +56,7 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
                 val tasks = taskRepository.fetchTasksForEmployee()
                 _taskList.postValue(tasks)
             } catch (e: Exception) {
-                // Handle errors (e.g., log them or show an error state)
+
                 e.printStackTrace()
                 _taskList.postValue(emptyList()) // Clear task list on failure
             }
@@ -70,7 +69,7 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
                 taskRepository.updateTaskStatus(taskId,newStatus)
             }
             catch (e: Exception) {
-                // Handle errors (e.g., log them or show an error state)
+
                 e.printStackTrace()
 
             }

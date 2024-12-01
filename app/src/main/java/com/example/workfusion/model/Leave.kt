@@ -1,17 +1,17 @@
 package com.example.workfusion.model
 
 class Leave (
-    val leaveId: Long = 0L,          // Default value
+    val leaveId: Long = 0L,
     val empId: Long = 0L,
     val sn: Long=0L,
-    // Default value
+
     val name: String = "",
     val type: String="",
     val subject: String="",
     val orgId:String = "",
-    val reason: String = "",   // Default value
-    var status: String = "Not Started", // Default value
-    val startDate: String = "",     // Default value
-    val endDate: String = ""        // Default value
+    val reason: String = "",
+    var status: String = "Not Started",
+    val startDate: String = "",
+    val endDate: String = ""
 
 )

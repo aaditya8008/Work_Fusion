@@ -72,11 +72,11 @@ class SplashScreen : AppCompatActivity() {
             }
         } catch (e: Exception) {
             // Handle Firestore or network-related errors
-            e.printStackTrace()  // Log error for debugging
+            e.printStackTrace()
             Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show()
-            startActivity(Intent(this, Home::class.java))  // Fallback to employee home
+            startActivity(Intent(this, Home::class.java))
         } finally {
-            finish() // Finish the splash screen activity
+            finish()
         }
     }
 }

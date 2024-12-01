@@ -27,7 +27,7 @@ import java.util.*
 
 class ApplyLeave : Fragment() {
     private var _binding: FragmentApplyLeaveBinding? = null
-    private var name: String? = null // Use nullable type instead of lateinit
+    private var name: String? = null
     private var empId: Long = 0L
     private var orgId :String?=null
     private val binding get() = _binding!!
@@ -61,7 +61,7 @@ class ApplyLeave : Fragment() {
                 Toast.makeText(requireContext(), "Please fill all the fields", Toast.LENGTH_SHORT).show()
                 Log.d("HOLLAA!!","$name $empId $startDate $endDate $reason")
             } else {
-                // Call ViewModel function to handle leave application submission
+
                 viewModel.uploadLeave(
                     empId = empId,
                     orgId=orgId!!,

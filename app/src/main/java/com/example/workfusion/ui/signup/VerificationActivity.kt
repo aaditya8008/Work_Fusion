@@ -48,8 +48,8 @@ class VerificationActivity : AppCompatActivity() {
 
     private fun checkEmailVerificationWithTimeout() {
         var elapsedTime = 0L
-        val checkInterval = 5000L // 5 seconds
-        val timeout = 60000L // 1 minute
+        val checkInterval = 5000L
+        val timeout = 60000L
 
         handler.postDelayed(object : Runnable {
             override fun run() {

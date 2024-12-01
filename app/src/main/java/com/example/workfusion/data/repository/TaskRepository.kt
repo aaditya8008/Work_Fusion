@@ -20,19 +20,16 @@ class TaskRepository(
             val organizationId = auth.currentUser?.uid ?: throw Exception("Unable to get Id")
             val org = db.collection("organizations").document(organizationId)
 
-            // Get the current employee counter and increment it
+
             val documentSnapshot = org.get().await()
             if (documentSnapshot.exists()) {
                 val taskCounter = documentSnapshot.getLong("taskCounter") ?: 0L
 
-
-                // Increment the counter and convert to Int safely
                 val taskId = (taskCounter + 1).toLong()
 
                 // Update the task counter in Firestore
                 org.update("taskCounter", taskCounter + 1).await()
 
-                // Prepare task data
                 val taskData = hashMapOf(
                     "taskId" to taskId,
                     "empId" to empId,
@@ -69,7 +66,6 @@ class TaskRepository(
 
         try {
 
-            // Get all documents in the "tasks" collection
             val querySnapshot: QuerySnapshot = db
 
                 .collection("tasks")
@@ -77,7 +73,7 @@ class TaskRepository(
                 .get()
                 .await()
 
-            // Convert each document to Task
+
             for (document in querySnapshot.documents) {
                 val task = document.toObject(Task::class.java)
                 if (task != null) {
@@ -99,34 +95,31 @@ class TaskRepository(
         try {
             // Fetch organizationId for the employee
             val documentSnapshot = db.collection("employees")
-                .document(empUid) // Use the employee's UID to get employee data
+                .document(empUid)
                 .get()
                 .await()
 
-            // Check if the organizationId and empId exist
             val organizationId = documentSnapshot.getString("organizationId")
                 ?: throw Exception("Organization ID not found for employee: $empUid")
             val empId = documentSnapshot.getLong("empId")
                 ?: throw Exception("Employee ID not found for employee")
 
 
-// After fetching tasks
             Log.d("TaskFetch", "Tasks fetched for empId: $empId")
 
             val querySnapshot = db.collection("tasks")
-                .whereEqualTo("empId", empId)  // This fetches only tasks with the specific empId
+                .whereEqualTo("empId", empId)
                 .whereEqualTo("organizationId",organizationId)
-                .get()  // Get the query results
-                .await()  // Wait for the query to complete asynchronously
+                .get()
+                .await()
 
-            // Iterate through the querySnapshot
+
             for (document in querySnapshot) {
                 val task = document.toObject(Task::class.java)
                 Log.d("TaskFetch", "Checking task with empId: ${task.empId}")
 
-                // No need for the extra check here, as Firestore is already filtered by empId
                 Log.d("TaskFetch", "Task fetched: $task")
-                taskList.add(task)  // Add the task to the list
+                taskList.add(task)
             }
 
         } catch (e: Exception) {
@@ -139,19 +132,15 @@ class TaskRepository(
 
     suspend fun updateTaskStatus(taskId: Long, newStatus: String) {
         try {
-            // Query Firestore for the task document where taskId matches
             val querySnapshot = db.collection("tasks")
                 .whereEqualTo("taskId", taskId)
                 .whereEqualTo("organizationId",organizationId)
                 .get()
                 .await()
 
-            // Check if the query returned any documents
             if (!querySnapshot.isEmpty) {
-                // Assuming taskId is unique, get the first document
                 val document = querySnapshot.documents[0]
 
-                // Update the status field in the matching document
                 document.reference.update("status", newStatus).await()
                 Log.d("Firestore", "Task status updated successfully for taskId: $taskId")
             } else {

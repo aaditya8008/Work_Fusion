@@ -14,7 +14,7 @@ class LeaveRepository(
     val organizationId = auth.currentUser?.uid ?: throw Exception("Unable to Fetch leaves")
     suspend fun updateLeaveStatus(leaveId: Long, newStatus: String) {
         try {
-            // Query Firestore for the document where leaveId matches
+
             val querySnapshot = db.collection("leaves")
                 .whereEqualTo("leaveId", leaveId)
                 .whereEqualTo("organizationId",organizationId)
@@ -23,10 +23,10 @@ class LeaveRepository(
 
             // Check if the query returned any documents
             if (!querySnapshot.isEmpty) {
-                // Assuming leaveId is unique, get the first document
+
                 val document = querySnapshot.documents[0]
 
-                // Update the status field in the matching document
+
                 document.reference.update("status", newStatus).await()
                 Log.d("Firestore", "Leave status updated successfully for leaveId: $leaveId")
             } else {
@@ -52,10 +52,10 @@ class LeaveRepository(
                 Log.d("LEAVE","Inside $empId $name $reason $startDate $endDate")
                 val leaveCounter = documentSnapshot.getLong("leaveCounter") ?: 0L
 
-                // Increment the counter and convert to Long safely
+
                 val leaveId = leaveCounter + 1
 
-                // Update the leave counter in Firestore
+
                 org.update("leaveCounter", leaveCounter + 1).await()
 
                 // Prepare leave data
@@ -92,14 +92,13 @@ class LeaveRepository(
         val leaveList = mutableListOf<Leave>()
 
         try {
-            // Get all documents in the "leaves" collection
             val querySnapshot: QuerySnapshot = db
                 .collection("leaves")
                 .whereEqualTo("organizationId",organizationId)
                 .get()
                 .await()
 
-            // Convert each document to Leave
+
             for (document in querySnapshot.documents) {
                 val leave = document.toObject(Leave::class.java)
                 if (leave != null) {
@@ -118,7 +117,7 @@ class LeaveRepository(
         val leaveList = mutableListOf<Leave>()
 
         try {
-            // Fetch organizationId for the employee
+
             val documentSnapshot = db.collection("employees")
                 .document(empUid) // Use the employee's UID to get employee data
                 .get()
@@ -132,7 +131,7 @@ class LeaveRepository(
 
             // Fetch leaves for the specific employee
             val querySnapshot = db.collection("leaves")
-                .whereEqualTo("empId", empId) // Filter by empId
+                .whereEqualTo("empId", empId)
                 .whereEqualTo("organizationId",organizationId)
                 .get()
                 .await()

@@ -69,8 +69,8 @@ class TaskRepository(
         try {
 
             // Get all documents in the "tasks" collection
-            val querySnapshot: QuerySnapshot = db.collection("organizations")
-                .document(organizationId)
+            val querySnapshot: QuerySnapshot = db
+
                 .collection("tasks")
                 .get()
                 .await()

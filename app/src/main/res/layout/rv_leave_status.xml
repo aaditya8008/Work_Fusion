@@ -39,6 +39,7 @@
                 android:text="Maternity Leave"
                 android:textSize="18.25sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -46,13 +47,16 @@
                 android:id="@+id/message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:drawableLeft="@drawable/baseline_message_24"
                 android:drawablePadding="2dp"
                 android:padding="8dp"
                 android:text="As informed before Im about to concieve in few days and am having labour pain"
                 android:textSize="18.25sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/subject" />
 
